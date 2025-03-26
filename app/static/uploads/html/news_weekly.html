@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻周报 | 产业动态与政策分析</title>
+    <style>
+        :root {
+            --systemBackground: #ffffff;
+            --secondarySystemBackground: #f2f2f7;
+            --tertiarySystemBackground: #e5e5ea;
+            --label: #000000;
+            --secondaryLabel: #3c3c4399;
+            --tertiaryLabel: #3c3c434c;
+            --systemBlue: #007aff;
+            --systemGray: #8e8e93;
+            --systemGray2: #aeaeb2;
+            --systemGray6: #f2f2f7;
+            --separator: #c6c6c8;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --systemBackground: #000000;
+                --secondarySystemBackground: #1c1c1e;
+                --tertiarySystemBackground: #2c2c2e;
+                --label: #ffffff;
+                --secondaryLabel: #ebebf599;
+                --tertiaryLabel: #ebebf54c;
+                --systemGray: #8e8e93;
+                --systemGray2: #636366;
+                --systemGray6: #1c1c1e;
+                --separator: #38383a;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--systemBackground);
+            color: var(--label);
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        header {
+            padding: 40px 0 20px;
+            border-bottom: 1px solid var(--separator);
+            margin-bottom: 24px;
+        }
+        
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .header-subtitle {
+            font-size: 17px;
+            color: var(--secondaryLabel);
+            margin-bottom: 8px;
+        }
+        
+        .date {
+            font-size: 15px;
+            color: var(--systemGray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .date::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--systemBlue);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .news-card {
+            background-color: var(--secondarySystemBackground);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: transform 0.2s ease;
+        }
+        
+        .news-card:active {
+            transform: scale(0.98);
+        }
+        
+        .news-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .news-time {
+            font-size: 15px;
+            color: var(--systemBlue);
+            margin-right: 12px;
+        }
+        
+        .news-platform {
+            font-size: 15px;
+            color: var(--systemGray);
+        }
+        
+        .news-content {
+            font-size: 17px;
+            margin-bottom: 12px;
+            color: var(--label);
+        }
+        
+        .news-insight {
+            background-color: var(--tertiarySystemBackground);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        
+        .insight-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--systemBlue);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .insight-title::before {
+            content: "💡";
+            margin-right: 6px;
+        }
+        
+        .insight-content {
+            font-size: 15px;
+            color: var(--label);
+        }
+        
+        .policy-section {
+            margin-top: 32px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: "📌";
+            margin-right: 8px;
+        }
+        
+        .policy-item {
+            display: flex;
+            margin-bottom: 16px;
+        }
+        
+        .policy-number {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--systemBlue);
+            margin-right: 12px;
+            min-width: 20px;
+        }
+        
+        .policy-content {
+            font-size: 16px;
+            flex: 1;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--secondaryLabel);
+            font-size: 14px;
+        }
+        
+        .source-link {
+            color: var(--systemBlue);
+            text-decoration: none;
+            font-size: 15px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        
+        .source-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="header-title">新闻周报</h1>
+            <p class="header-subtitle">产业动态与政策分析</p>
+            <div class="date">2025年3月第4周</div>
+        </header>
+        
+        <div class="news-card">
+            <h2 class="news-title">中国房地产业协会召开房地产市场形势报告会</h2>
+            <div class="news-meta">
+                <span class="news-time">3月27日至28日</span>
+                <span class="news-platform">中新经纬、钛媒体App</span>
+            </div>
+            <p class="news-content">会议聚焦宏观经济背景下房地产趋势，探索"工业地产+科技创新"模式，推动产城融合与存量用地更新，强调工业地产需结合新型产业需求优化空间布局。</p>
+            <div class="news-insight">
+                <div class="insight-title">启示</div>
+                <p class="insight-content">工业地产需关注政策导向，通过产业升级和科技赋能提升土地价值，未来可能出台更多支持工业用地集约化、智能化发展的政策。</p>
+            </div>
+            <a href="https://new.qq.com/rain/a/20250323A04SXX00" class="source-link">查看原文</a>
+        </div>
+        
+        <div class="news-card">
+            <h2 class="news-title">2025中关村论坛年会开幕</h2>
+            <div class="news-meta">
+                <span class="news-time">3月27日至31日</span>
+                <span class="news-platform">中新经纬</span>
+            </div>
+            <p class="news-content">论坛设置技术交易、成果发布等板块，重点展示高端装备、机器人及自动化方案，推动科技园区与工业地产深度融合。</p>
+            <div class="news-insight">
+                <div class="insight-title">启示</div>
+                <p class="insight-content">科技园区和智能制造基地需求上升，工业地产需配套高标准的研发设施与产业链服务，吸引高新技术企业入驻。</p>
+            </div>
+            <a href="https://new.qq.com/rain/a/20250322A05F4200" class="source-link">查看原文</a>
+        </div>
+        
+        <div class="news-card">
+            <h2 class="news-title">ITES深圳工业展聚焦精密制造与工业地产需求</h2>
+            <div class="news-meta">
+                <span class="news-time">3月26日至29日</span>
+                <span class="news-platform">中新经纬</span>
+            </div>
+            <p class="news-content">展会展示16万平方米工业制造技术，强调工业地产需满足精密零组件生产、自动化产线等专业化需求。</p>
+            <div class="news-insight">
+                <div class="insight-title">启示</div>
+                <p class="insight-content">工业地产运营商应提升厂房定制化能力，例如层高、承重、电力配置等，以适应高端制造业的硬件要求。</p>
+            </div>
+            <a href="https://new.qq.com/rain/a/20250322A05F4200" class="source-link">查看原文</a>
+        </div>
+        
+        <div class="news-card">
+            <h2 class="news-title">上海全球投资促进大会发布产业布局图</h2>
+            <div class="news-meta">
+                <span class="news-time">3月25日开幕</span>
+                <span class="news-platform">钛媒体App</span>
+            </div>
+            <p class="news-content">大会发布2025年上海重点产业布局，包括智能网联汽车试点示范区等，推动工业地产与新能源、数字经济结合。</p>
+            <div class="news-insight">
+                <div class="insight-title">启示</div>
+                <p class="insight-content">区域产业规划直接影响工业地产方向，需关注地方政府对新兴产业的扶持政策，如低空经济、卫星互联网等领域的配套用地需求。</p>
+            </div>
+            <a href="https://new.qq.com/rain/a/20250323A04SXX00" class="source-link">查看原文</a>
+        </div>
+        
+        <div class="news-card">
+            <h2 class="news-title">北京石景山区工业遗存转型未来产业园区</h2>
+            <div class="news-meta">
+                <span class="news-time">3月21日（影响延续至本周）</span>
+                <span class="news-platform">腾讯新闻</span>
+            </div>
+            <p class="news-content">石景山区利用首钢等工业遗存，打造人形机器人、元宇宙等未来产业基地，提供"小试-中试-量产"复合空间。</p>
+            <div class="news-insight">
+                <div class="insight-title">启示</div>
+                <p class="insight-content">城市更新背景下，存量工业用地可通过功能混合开发（如研发+生产+展示）提升附加值，政策支持或成关键。</p>
+            </div>
+            <a href="https://new.qq.com/rain/a/20250321A0A6B100" class="source-link">查看原文</a>
+        </div>
+        
+        <div class="policy-section">
+            <h2 class="section-title">政策动态及启示总结</h2>
+            
+            <div class="policy-item">
+                <div class="policy-number">1</div>
+                <div class="policy-content">
+                    <strong>工业用地灵活性增强</strong>：上海等地允许分期支付土地价款（首付50%，余款一年内缴清），降低企业初期资金压力，促进项目快速落地。
+                </div>
+            </div>
+            
+            <div class="policy-item">
+                <div class="policy-number">2</div>
+                <div class="policy-content">
+                    <strong>产业导向明确</strong>：多地通过区域规划（如北京石景山、上海示范区）引导工业地产向高附加值产业倾斜，开发商需紧跟地方产业目录。
+                </div>
+            </div>
+            
+            <div class="policy-item">
+                <div class="policy-number">3</div>
+                <div class="policy-content">
+                    <strong>科技赋能趋势</strong>：中关村论坛、深圳工业展等活动显示，工业地产需与智能制造、绿色技术结合，提升园区智慧化管理水平。
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>更多完整信息可通过溯源链接查看原文</p>
+            <p>© 2025 新闻周报</p>
+        </div>
+    </div>
+</body>
+</html>
