@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安吉三日游 | 山水茶竹之旅</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-color: #ffffff;
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --accent-color: #0071e3;
+            --highlight-color: #34c759;
+            --border-radius: 18px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #0071e3, #34c759);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: var(--secondary-text);
+            font-weight: 400;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 .emoji {
+            margin-right: 10px;
+        }
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 20px 0 10px;
+            color: var(--accent-color);
+        }
+        
+        p {
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+        
+        ul, ol {
+            margin-left: 0px;
+            margin-bottom: 15px;
+            list-style: none; /* 添加这行来移除默认的列表样式 */
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        li:before {
+            content: "•";
+            color: var(--accent-color);
+            font-size: 20px;
+            position: absolute;
+            left: 5px;
+            top: -2px;
+        }
+        
+        .time-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .time {
+            font-weight: 500;
+            color: var(--accent-color);
+            min-width: 60px;
+            margin-right: 15px;
+        }
+        
+        .activity {
+            flex: 1;
+        }
+        
+        .highlight {
+            background-color: rgba(52, 199, 89, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--highlight-color);
+            font-weight: 500;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .image-grid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            cursor: zoom-in; /* 添加鼠标指针样式，提示可点击 */
+        }
+        
+        .image-grid img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 添加灯箱样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(5px);
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .price-tag {
+            display: inline-block;
+            background-color: rgba(0, 113, 227, 0.1);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+        }
+        
+        .info-box {
+            background-color: rgba(0, 113, 227, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .info-box-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .restaurant-card {
+            background-color: rgba(52, 199, 89, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .restaurant-name {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--highlight-color);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>安吉三日游旅行攻略</h1>
+        <p class="subtitle">山水茶竹 · 亲子休闲 · 自然与文化之旅</p>
+    </header>
+    
+    <div class="card">
+        <h2><span class="emoji">🗓️</span>行程概览</h2>
+        <div class="mermaid">
+            flowchart TD
+                A[第一天: 白茶观景 & 鲸奇谷 & 温泉] --> B[第二天: 云上草原 & 灵峰寺 & 竹博园]
+                B --> C[第三天: 余村 & 自然博物馆 & 返程]
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="emoji">🚗</span>详细行程安排</h2>
+        
+        <h3>第一天：白茶观景 & 鲸奇谷 & 温泉放松</h3>
+        <div class="time-item">
+            <div class="time">08:00</div>
+            <div class="activity">从上海松江出发</div>
+        </div>
+        <div class="time-item">
+            <div class="time">10:00</div>
+            <div class="activity">抵达 <span class="highlight">安吉白茶观景平台</span>（车程约2小时），欣赏茶园风光，拍照打卡</div>
+        </div>
+        <div class="time-item">
+            <div class="time">12:00</div>
+            <div class="activity">在观景平台附近用午餐</div>
+        </div>
+        <div class="time-item">
+            <div class="time">13:00</div>
+            <div class="activity">出发前往 <span class="highlight">鲸奇谷</span>（车程约40分钟），体验亲子游乐设施或自然徒步</div>
+        </div>
+        <div class="time-item">
+            <div class="time">16:00</div>
+            <div class="activity">前往 <span class="highlight">二月花温泉酒店</span> 办理入住，泡温泉放松身心</div>
+        </div>
+        <div class="time-item">
+            <div class="time">18:30</div>
+            <div class="activity">在酒店附近享用晚餐，休息</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <h3>第二天：云上草原 & 灵峰寺 & 竹博园</h3>
+        <div class="time-item">
+            <div class="time">09:00</div>
+            <div class="activity">出发前往 <span class="highlight">云上草原</span>（车程视具体位置而定），体验高山游乐项目、滑雪（冬季）或徒步赏景</div>
+        </div>
+        <div class="time-item">
+            <div class="time">12:30</div>
+            <div class="activity">返回 <span class="highlight">二月花温泉酒店</span> 用午餐并稍作休息</div>
+        </div>
+        <div class="time-item">
+            <div class="time">14:00</div>
+            <div class="activity">前往 <span class="highlight">灵峰寺</span>（车程约40分钟），参观古寺，感受禅意氛围</div>
+        </div>
+        <div class="time-item">
+            <div class="time">15:30</div>
+            <div class="activity">出发至 <span class="highlight">竹博园</span>（车程约10分钟），观赏竹林景观，了解竹文化</div>
+        </div>
+        <div class="time-item">
+            <div class="time">18:00</div>
+            <div class="activity">在竹博园附近用晚餐</div>
+        </div>
+        <div class="time-item">
+            <div class="time">19:30</div>
+            <div class="activity">返回酒店休息</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <h3>第三天：余村 & 自然博物馆 & 返程</h3>
+        <div class="time-item">
+            <div class="time">09:00</div>
+            <div class="activity">出发前往 <span class="highlight">余村</span>（车程约30分钟），游览"绿水青山就是金山银山"发源地，感受生态乡村</div>
+        </div>
+        <div class="time-item">
+            <div class="time">12:00</div>
+            <div class="activity">在余村用午餐</div>
+        </div>
+        <div class="time-item">
+            <div class="time">13:00</div>
+            <div class="activity">前往 <span class="highlight">浙江自然博物馆安吉馆</span>（车程约30分钟），参观恐龙馆、生态馆等展区</div>
+        </div>
+        <div class="time-item">
+            <div class="time">16:00</div>
+            <div class="activity">启程返回上海（车程约2小时）</div>
+        </div>
+        <div class="time-item">
+            <div class="time">18:30</div>
+            <div class="activity">抵达上海家中用晚餐</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="emoji">🏞️</span>景点详细介绍</h2>
+        
+        <h3>安吉白茶观景平台</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e5717241c76.jpg" alt="安吉白茶观景平台">
+        </div>
+        <ul>
+            <li><strong>无需门票</strong>。（观光车路线：导航至"安吉白茶观景平台游客中心"。购买套票，包含观光车（<strong>10元/人</strong>）和"一片叶子"茶饮（<strong>48元/人</strong>）。运营时间<strong>08:00-17:00</strong>，每20分钟一辆车）</li>
+            <li>无需预约，直接前往即可。</li>
+            <li>亮点：<span class="highlight">万亩茶田全景视野</span>、玻璃茶室、网红"天空之镜"打卡点。</li>
+            <li>孩子可参与：茶田漫步、体验采茶（需咨询茶场活动）。</li>
+            <li>推荐风景：<strong>上午10点前</strong>光线柔和，茶田与远山云雾交织。</li>
+            <li>注意事项：周末人流量大，建议工作日或早到；停车免费但车位紧张。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>鲸奇谷</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e57123713bf.jpg" alt="鲸奇谷">
+        </div>
+        <ul>
+            <li><strong>无需门票</strong>，部分体验项目单独收费（如骑马、UTV）。</li>
+            <li>无需预约，建议自驾直达。</li>
+            <li>亮点：<span class="highlight">超长滑梯</span>、蚂蚁迷宫、云朵蹦床等无动力设施。</li>
+            <li>孩子可玩：绳索栈道、跳跳云、萌宠投喂。</li>
+            <li>好看风景：竹林步道与山谷全景（建议午后阳光充足时拍摄）。</li>
+            <li>避坑提示：<strong>穿长裤+防滑袜</strong>防擦伤；自带饮用水。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>安吉二月花温泉酒店</h3>
+        <div class="image-grid">
+            <img src="https://dimg04.c-ctrip.com/images/1mc2n12000hujs3sr059B_W_1080_808_R5_D.jpg" alt="二月花温泉酒店">
+            <img src="https://dimg04.c-ctrip.com/images/1mc6o12000hujur2j65F5_W_1080_808_R5_D.jpg" alt="二月花温泉酒店">
+            <img src="https://dimg04.c-ctrip.com/images/1mc6f12000huk5j8n09AE_W_1080_808_R5_D.jpg" alt="二月花温泉酒店">
+        </div>
+        <ul>
+            <li>亮点：<span class="highlight">溶洞温泉</span>、无边泳池、古风园林设计。</li>
+            <li>孩子可体验：酒店内儿童游乐区。</li>
+            <li>风景推荐：<strong>傍晚</strong>泡温泉观山景。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>云上草原</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e571223c0ae.jpg" alt="云上草原">
+            <img src="https://img.picui.cn/free/2025/03/27/67e571722ec0a.jpg" alt="云上草原">
+            <img src="https://img.picui.cn/free/2025/03/27/67e5717174171.jpg" alt="云上草原">
+        </div>
+        <ul>
+            <li>基础门票<strong>128元</strong>起，免票：身高1.2米（不含）以下儿童。（公众号：云上草原国际山地旅游度假区）</li>
+            <li><strong>需提前1天21点前</strong>线上预约。</li>
+            <li>亮点：<span class="highlight">悬崖秋千</span>、<span class="highlight">彩虹滑草</span>、高山草原景观。</li>
+            <li>免费项目：熊猫上山、萌宠乐园、百鸟世界、熊猫村落、坑爹过山车、弹射飞人、熊猫犬舍、竹林穿越、竹林蹦床、攀爬树阵、愤怒的熊猫、秋千岛。</li>
+            <li>收费项目：天路飞车 <strong>120元</strong>、竹间漂流<strong>120元</strong>、威亚飞人<strong>100元</strong></li>
+            <li>孩子可玩：霍比特小镇拍照、萌宠乐园投喂、天路飞车。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>灵峰寺</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e57171201d8.jpg" alt="灵峰寺">
+        </div>
+        <ul>
+            <li><strong>无需门票</strong>。</li>
+            <li>无需预约，直接进入。</li>
+            <li>亮点：<span class="highlight">千年古刹</span>、竹林秘境、后山竹海徒步。</li>
+            <li>孩子可参与：抄经体验（需咨询）、登山步道。</li>
+            <li>自驾：
+                <ul>
+                    <li>P1：导航到灵峰寺停车点（<strong>免费</strong>），走一段小径</li>
+                    <li>P2：安吉灵峰山景区停车场（收费），离大门近</li>
+                    <li>步行约<strong>15分钟</strong>上山（全程缓坡，无台阶）；</li>
+                </ul>
+            </li>
+            <li>游览建议：
+                <ul>
+                    <li>山门至大雄宝殿：入口处<strong>千年古银杏树</strong>为镇寺之宝，秋季金叶如盖；殿内供奉三尊明代佛像（阿弥陀佛、药师佛、释迦牟尼），藏经楼珍藏《灵峰宗论》等古籍。</li>
+                    <li>后山竹海徒步：东侧登山步道可俯瞰寺景，全程石阶环绕竹林（建议预留<strong>1小时</strong>）；山间溪流与古木参天，适合拍照与静心。</li>
+                </ul>
+            </li>
+            <li>风景推荐：寺后竹林小径与溪流。</li>
+            <li>注意事项：斋饭仅<strong>中午</strong>供应（需随喜功德）。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>竹博园</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e571716a035.jpg" alt="竹博园">
+        </div>
+        <ul>
+            <li>门票<strong>80元/人</strong>，儿童1.2以下免票。（公众号：安吉竹子博览园景区）</li>
+            <li>提前1天购票便宜<strong>10元</strong>。</li>
+            <li>亮点：<span class="highlight">大熊猫观赏</span>、竹文化博物馆。</li>
+            <li>孩子可玩：萌宠乐园投喂、竹林穿越设施。</li>
+            <li>风景推荐：竹林迷宫与熊猫馆周边花海。</li>
+            <li>避坑提示：水影秀表演评价两极（可选择性观看）。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>余村</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e571235ed91.jpg" alt="余村">
+            <img src="https://img.picui.cn/free/2025/03/27/67e571236a49a.jpg" alt="余村">
+        </div>
+        <ul>
+            <li><strong>免费开放</strong>，无需预约。</li>
+            <li>亮点：<span class="highlight">赵家堂樱花林</span>、余村展览馆、乡村田园风光。</li>
+            <li>孩子可体验：溪边玩水、骑行绿道。</li>
+            <li>风景推荐：樱花季与村庄全景。</li>
+            <li>打卡点：荷花塘→和谐号高铁集市→彩虹步道→竹屋→油菜花田→麦穗田埂→两山石碑→青年图书馆→余村展馆</li>
+            <li>游玩方式： 
+                <ul>
+                    <li>共享电瓶车：<strong>强推！</strong>扫码就可以租！可以沿着油菜花田一直骑行</li>
+                </ul>
+            </li>
+            <li>注意事项：村内停车位紧张，建议错峰。</li>
+        </ul>
+        
+        <div class="divider"></div>
+        
+        <h3>浙江自然博物馆安吉馆</h3>
+        <div class="image-grid">
+            <img src="https://img.picui.cn/free/2025/03/27/67e57121ee280.jpg" alt="自然博物馆">
+        </div>
+        <ul>
+            <li><strong>需提前3天</strong>官方公众号预约（小程序：文旅壹卡通）。</li>
+            <li>亮点：<span class="highlight">恐龙化石</span>、非洲动物标本、互动体验展。</li>
+            <li>孩子可参与：自然之美馆探索、科普互动装置。</li>
+            <li>优先馆推荐：<strong>1️⃣贝林馆 2️⃣海洋馆 3️⃣恐龙馆</strong></li>
+            <li>预约人工讲解：<strong>强烈推荐！</strong>价格是10人以下<strong>120元</strong>。</li>
+            <li>4D电影
+                <ul>
+                    <li>地球生命大冒险：<strong>14:00</strong></li>
+                    <li>海龟奇幻之旅：两场，<strong>13:00、16:00</strong></li>
+                    <li>火星探秘：<strong>10:00</strong></li>
+                    <li>抹香鲸大战乌贼王：<strong>11:00、15:00</strong></li>
+                    <li>三叠纪海怪：<strong>12:00</strong></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h2><span class="emoji">🍽️</span>美食推荐</h2>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🌿 安吉白茶观景平台 - 阿土哥土菜馆（溪龙乡店）</div>
+            <p><strong>特色：</strong>鱼头豆腐煲（汤底白胡椒味足）、竹笋咸肉锅（笋质嫩如黄花菜）。</p>
+            <p><strong>价格：</strong>人均80-100元（分量足，可打包剩余菜品）。</p>
+            <p><strong>提示：</strong>建议周六午间错峰前往（13:00后无需排队）；导航至"溪龙乡溪龙村"，距观景台约10分钟车程。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🏨 二月花温泉酒店附近 - 高家堂村农家乐</div>
+            <p>距酒店约5分钟车程。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🏞️ 云上草原 - 云上人家</div>
+            <p><strong>特色：</strong>油炸桑叶（酥脆清香）、番茄土豆牛肉粉（下饭神器）、玉米烙。</p>
+            <p><strong>避雷：</strong>三鲜鱼头偶有腥味，建议优先选择招牌菜。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🏞️ 云上草原山顶 - 云街</div>
+            <p><strong>亮点：</strong>20余家小吃店（烤肠、竹筒饭等），适合快速补充能量；价格略高于山下但合理。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🎋 竹博园 - 阿拐牛肉·安吉土菜</div>
+            <p><strong>必点：</strong>炭火牛排（外焦里嫩）、鱼头煲（汤汁泡饭一绝）、香椿炒蛋（时令限定）。</p>
+            <p><strong>提示：</strong>午间营业至14:00，建议早到避免售罄。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🎋 竹博园 - 四季虾馆</div>
+            <p><strong>推荐：</strong>高压锅生蚝（原汁原味）、十三香龙虾、川味酸菜鱼。</p>
+            <p><strong>特色：</strong>店内提供免费打包服务，适合夜宵外带。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🌾 余村 - 云南烧烤（横路村村委边）</div>
+            <p><strong>必点：</strong>锡纸金针菇、嫩牛肉片、烤茄子。</p>
+            <p><strong>提示：</strong>炭火现烤需耐心等待，建议20:00前到店占座。</p>
+        </div>
+        
+        <div class="restaurant-card">
+            <div class="restaurant-name">🌾 余村 - 杠杠牛肉</div>
+            <p><strong>特色：</strong>现炒黄牛肉（微辣）、本地空心菜（搭配蒜蓉风味独特）。</p>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // 添加图片点击放大功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建灯箱元素
+            const lightbox = document.createElement('div');
+            lightbox.className = 'lightbox';
+            const lightboxImg = document.createElement('img');
+            lightboxImg.className = 'lightbox-content';
+            lightbox.appendChild(lightboxImg);
+            document.body.appendChild(lightbox);
+            
+            // 获取所有图片
+            const images = document.querySelectorAll('.image-grid img');
+            
+            // 为每个图片添加点击事件
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    lightboxImg.src = this.src;
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // 防止背景滚动
+                });
+            });
+            
+            // 点击灯箱关闭
+            lightbox.addEventListener('click', function() {
+                this.style.display = 'none';
+                document.body.style.overflow = ''; // 恢复滚动
+            });
+            
+            // ESC键关闭灯箱
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
